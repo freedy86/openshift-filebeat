@@ -2,9 +2,7 @@ FROM debian:jessie
 
 LABEL maintainer="nine.ch Engineering <engineering@nine.ch>"
 
-ARG FILEBEAT_VERSION
-ARG FILEBEAT_SHA
-ARG FILEBEAT_SHA_TYPE
+ENV FILEBEAT_VERSION=6.4.0
 
 # update and install wget
 # install and configure filebeat
@@ -18,7 +16,6 @@ RUN set -x && \
     chmod a+w /filebeat/data && \
     wget https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-${FILEBEAT_VERSION}-linux-x86_64.tar.gz -O /opt/filebeat.tar.gz && \
     cd /opt && \
-    echo "${FILEBEAT_SHA}  filebeat.tar.gz" | ${FILEBEAT_SHA_TYPE}sum -c - && \
     tar xzvf filebeat.tar.gz && \
     cd filebeat-* && \
     cp filebeat /bin && \
